@@ -2,8 +2,8 @@ name: Build Docker image
 
 on:
   push:
-    # branches:
-    #   - 'main'
+    branches:
+      - 'main'
 
 jobs:
   build-bot-dockerfile:
@@ -26,4 +26,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/angelonfira/discordpy-bot/alan-discordpy-bot:latest
+          tags: ghcr.io/alanreviews/discordpy-bot/tara-bot:latest
