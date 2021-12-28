@@ -22,7 +22,7 @@ class moderation(commands.Cog):
         if user is None:
             user = ctx.author
         embed = Embed(title="User information", colour=user.colour)
-        embed.set_thumbnail(url=user.avatar)
+        embed.set_thumbnail(url=user.avatar_url)
         fields = [("ID", user.id, False), ("Name", str(user), True)]
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
