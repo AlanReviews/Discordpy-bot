@@ -56,6 +56,18 @@ class Basics(commands.Cog):
     async def ubuntu(self, ctx):
         """Shows Ubuntu logo in ASCII format"""
         await ctx.send(file=File(fp="cogs/Ubuntu.png"))
+    
+    @commands.command(name='roll', aliases=['dice'])
+    async def roll(self, ctx, dice: str):
+        """Rolls a dice in NdN format."""
+        try:
+            rolls, limit = map(int, dice.split('d'))
+        except Exception:
+            await ctx.send('Format has to be in NdN!')
+            return
+
+        result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
+        await ctx.send(result)
 
 
 def setup(bot):
