@@ -10,14 +10,14 @@ intents = discord.Intents.default()
 intents.members = True
 
 TOKEN = os.getenv("DISCORD_TOKEN")
+PREFIX = os.getenv("PREFIX")
 
-client = commands.Bot(command_prefix='!!', description=DESCRIPTION, intents=intents)
+client = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCRIPTION, intents=intents)
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online, activity = discord.Game("!!help"))
+    await client.change_presence(status=discord.Status.online, activity = discord.Game("!!help | Happy Holidays!"))
     print(f"Logged in as {client.user} (ID: {client.user.id})")
-
 
 initial_extensions = []
 
