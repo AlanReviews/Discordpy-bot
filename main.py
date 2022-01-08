@@ -10,7 +10,7 @@ intents = discord.Intents.default()
 intents.members = True
 
 TOKEN = os.getenv("DISCORD_TOKEN")
-PREFIX = os.getenv("PREFIX")
+PREFIX = os.getenv("PREFIX", default="!!")
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCRIPTION, intents=intents)
 
