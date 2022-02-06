@@ -39,10 +39,10 @@ class Basics(commands.Cog):
         await ctx.message.delete()
 
     @commands.command()
-    async def advice(self, ctx):
-        """I give advice from Zen Quotes"""
-        advice = get_quote()
-        await ctx.send(advice)
+    async def quote(self, ctx):
+        """I give a quote from Zen Quotes"""
+        zenquote = get_quote()
+        await ctx.send(zenquote)
 
     @commands.command()
     async def stats(self, ctx):
