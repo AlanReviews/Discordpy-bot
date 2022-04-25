@@ -1,6 +1,7 @@
 import discord, os, random, aiohttp, json
 from discord import File, Embed, channel
 from discord.ext import commands
+import random
 
 class Basics(commands.Cog):
     def __init__(self, bot):
@@ -9,8 +10,8 @@ class Basics(commands.Cog):
     # Here's a list of basic commands I created
     @commands.command()
     async def ping(self, ctx, name: str = None):
-        """Check my latency"""
-        await ctx.send(f'My ping is {self.bot.latency * 100} s!')
+        """Check my websocket latency"""
+        await ctx.send(f'My ping is {round(self.bot.latency * 100,2)} ms!')
 
     @commands.command()
     async def hug(self, ctx, name: str = None):
@@ -19,7 +20,7 @@ class Basics(commands.Cog):
         await ctx.send(f"I give a hug to {name}!")
 
     @commands.command()
-    async def eightball(self, ctx):
+    async def eightball(self, ctx, arg):
         """I predict the future"""
         output = ["Yes", "No", "Unsure", "Can't answer right now"]
         await ctx.send(output[random.randint(0, len(output))])
@@ -33,8 +34,6 @@ class Basics(commands.Cog):
     @commands.command()
     async def quote(self, ctx):
         """I give a quote from Zen Quotes"""
-        # zenquote = get_quote()
-        # await ctx.send(zenquote)
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://zenquotes.io/api/random") as r:
                 res = await r.json()  # returns dict
@@ -66,10 +65,18 @@ class Basics(commands.Cog):
         result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
         await ctx.send(result)
         
+    @commands.command(name='choose', description='For when you wanna settle the score some other way')
+    async def choose(self, ctx, *choices: str):
+        """Chooses between multiple choices."""
+        await ctx.send(random.choice(choices))
+        
     @commands.command(name='dm')
     async def dm(self, ctx):
         """Sends a hello in dms"""
-        await ctx.message.author.send("Hello there")
+        try:
+            await ctx.message.author.send("Hello there")
+        except:
+            await ctx.send("Hey! I cannot dm you.")
 
 
 def setup(bot):
