@@ -11,9 +11,9 @@ intents.members = True
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 PREFIX = os.getenv("PREFIX", default="!!")
-activity = discord.Game(name="!!help | It is cold outside")
+activity = discord.Game(name="!!help")
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCRIPTION, intents=intents, activity=activity, status=discord.Status.idle)
+client = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCRIPTION, intents=intents, activity=activity, status=discord.Status.online)
 
 @client.event
 async def on_ready():
