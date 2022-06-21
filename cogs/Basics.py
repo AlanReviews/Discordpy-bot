@@ -78,6 +78,11 @@ class Basics(commands.Cog):
         except:
             await ctx.send("Hey! I cannot dm you.")
 
+    @commands.command(name='faq')
+    async def faq(self, ctx):
+        """Sends you a link to Alan Reviews FAQ page"""
+        await ctx.send("What do I review? How do I request a video review? All the answers are in this link: https://principled-lychee-346.notion.site/12bf6d65f1d74780937fa8ae3ed70fe4?v=fd59a2938e614e988fdcb69914306633")
+
 
 def setup(bot):
     bot.add_cog(Basics(bot))
