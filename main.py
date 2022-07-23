@@ -11,7 +11,7 @@ intents.members = True
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 PREFIX = os.getenv("PREFIX", default="!!")
-activity = discord.Game(name="!!help")
+activity = discord.Game(name="!!help | Summertime!")
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCRIPTION, intents=intents, activity=activity, status=discord.Status.online)
 

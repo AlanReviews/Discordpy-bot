@@ -43,9 +43,13 @@ class Basics(commands.Cog):
     @commands.command()
     async def stats(self, ctx):
         """Check out my stats"""
+        total_memory, used_memory, free_memory = map(
+        int, os.popen('free -t -m').readlines()[-1].split()[1:])
+        memory_usage = round((used_memory/total_memory) * 100, 2)
         embed = Embed(title="Stats", description="Here's my stats:")
         embed.add_field(name="Operating System", value="Ubuntu 20.04", inline=False)
         embed.add_field(name="Status", value="online and working", inline=False)
+        embed.add_field(name="Memory usage (%)", value=memory_usage, inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -81,7 +85,18 @@ class Basics(commands.Cog):
     @commands.command(name='faq', aliases=["questions"])
     async def faq(self, ctx):
         """Sends you a link to the Alan Reviews FAQ page"""
-        await ctx.send("What does Alan review? How do I request a video review? All the answers are in this link: https://principled-lychee-346.notion.site/12bf6d65f1d74780937fa8ae3ed70fe4?v=fd59a2938e614e988fdcb69914306633")
+        await ctx.send("What does Alan review? How do I request a video review? All the answers are in this link: https://principled-lychee-346.notion.site/12bf6d65f1d74780937fa8ae3ed70fe4?v=fd59a2938e614e988fdcb69914306633 You're welcome.")
+
+    @commands.command(name='links', aliases=['link'])
+    async def links(self, ctx):
+        """Lists all my important links in an embed."""
+        links = discord.Embed(title="List of Links",description="Here is a list of links. More will be added later. Enjoy!",colour=0xFF0000)
+        links.set_author(name="Alan")
+        links.add_field(name="YouTube", value="https://www.youtube.com/c/TheAlanReviews", inline=False)
+        links.add_field(name="Frequently asked questions", value="https://principled-lychee-346.notion.site/12bf6d65f1d74780937fa8ae3ed70fe4?v=fd59a2938e614e988fdcb69914306633", inline=False)
+        links.add_field(name="Review list", value="https://docs.google.com/spreadsheets/d/1FbS8VpjTf0l9czePzXDp3A89EEW3U43-qVpyjDyFMq4/edit?usp=sharing", inline=False)
+        links.add_field(name="GitHub Repository", value="https://github.com/AlanReviews/Discordpy-bot", inline=False)
+        await ctx.send(embed=links)
 
 
 def setup(bot):
