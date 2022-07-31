@@ -13,7 +13,7 @@ class moderation(commands.Cog):
     async def serverinfo(self, ctx):
         """Shows server information in an embed"""
         embed = Embed(title="Server information")
-        fields = [("ID", ctx.guild.id, True), ("Creation date", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),("Member count", ctx.guild.max_members, True),
+        fields = [("ID", ctx.guild.id, True), ("Creation date", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),("Member count", ctx.guild.member_count, True),
         ("Explicit content filer", ctx.guild.explicit_content_filter, True), ("Verification level", ctx.guild.verification_level, True)]
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
