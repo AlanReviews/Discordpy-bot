@@ -94,7 +94,7 @@ class Basics(commands.Cog):
         links.set_author(name="Alan")
         links.add_field(name="YouTube", value="https://www.youtube.com/c/TheAlanReviews", inline=False)
         links.add_field(name="Frequently asked questions", value="https://principled-lychee-346.notion.site/12bf6d65f1d74780937fa8ae3ed70fe4?v=fd59a2938e614e988fdcb69914306633", inline=False)
-        links.add_field(name="Review list", value="https://docs.google.com/spreadsheets/d/1FbS8VpjTf0l9czePzXDp3A89EEW3U43-qVpyjDyFMq4/edit?usp=sharing", inline=False)
+        links.add_field(name="Review list", value="https://docs.google.com/spreadsheets/d/e/2PACX-1vSWIyo2ktAkKEQqLVwAdy3DvQLO9YzbPntU65-13nfNvZa-d5ohtd5lHEiijEz_erW8qeKwlS7wuoYW/pubhtml", inline=False)
         links.add_field(name="GitHub Repository", value="https://github.com/AlanReviews/Discordpy-bot", inline=False)
         await ctx.send(embed=links)
 
