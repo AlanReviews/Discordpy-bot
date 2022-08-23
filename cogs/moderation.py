@@ -26,7 +26,7 @@ class moderation(commands.Cog):
         if user is None:
             user = ctx.author
         embed = Embed(title="User information", colour=user.colour)
-        embed.set_thumbnail(url=user.avatar_url)
+        embed.set_thumbnail(url=user.display_avatar)
         fields = [("ID", user.id, False), ("Name", str(user), True)]
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
@@ -42,5 +42,5 @@ class moderation(commands.Cog):
         await ctx.message.author.send(f'You got kicked for {reason}. Come back when you behave.')
 
 
-def setup(bot):
-    bot.add_cog(moderation(bot))
+async def setup(bot):
+    await bot.add_cog(moderation(bot))

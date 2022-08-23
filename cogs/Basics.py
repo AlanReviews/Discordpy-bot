@@ -99,5 +99,5 @@ class Basics(commands.Cog):
         await ctx.send(embed=links)
 
 
-def setup(bot):
-    bot.add_cog(Basics(bot))
+async def setup(bot):
+    await bot.add_cog(Basics(bot))

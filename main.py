@@ -1,4 +1,4 @@
-import discord, os, asyncio
+import discord, os, asyncio, logging
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -7,27 +7,31 @@ load_dotenv()
 DESCRIPTION = '''Hello, I am Tara. I am a custom discord.py bot created by Alan.'''
 
 intents = discord.Intents.default()
-intents.members = True
+intents.message_content = True
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 PREFIX = os.getenv("PREFIX", default="!!")
-activity = discord.Game(name="!!help | Summertime!")
+activity = discord.Game(name="!!help | Updated with Discord.py v2")
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCRIPTION, intents=intents, activity=activity, status=discord.Status.online)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 
-@client.event
-async def on_ready():
-    print(f"Logged in as {client.user} (ID: {client.user.id})")
+# subclassing commands.Bot
+class MyBot(commands.Bot):
+    # overriding setup_hook and doing our stuff in it
+    async def setup_hook(self):
+        print(f"Logging in as: {self.user}")
+        initial_extensions = []
+        for filename in os.listdir('./cogs'):
+            if filename.endswith('.py'):
+                initial_extensions.append("cogs." + filename[:-3])
+        
+        for extension in initial_extensions:
+            await bot.load_extension(extension)
 
-initial_extensions = []
+bot = MyBot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCRIPTION, intents=intents, activity=activity, status=discord.Status.online)
 
+@bot.event
+async def on_message(message):
+    await bot.process_commands(message)
 
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        initial_extensions.append("cogs." + filename[:-3])
-
-if __name__ == "__main__":
-    for extension in initial_extensions:
-        client.load_extension(extension)
-
-client.run(TOKEN)
+bot.run(TOKEN, log_handler=handler, log_level=logging.DEBUG)
