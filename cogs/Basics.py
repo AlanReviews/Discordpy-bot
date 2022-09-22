@@ -85,7 +85,7 @@ class Basics(commands.Cog):
     @commands.command(name='faq', aliases=["questions"])
     async def faq(self, ctx):
         """Sends you a link to the Alan Reviews FAQ page"""
-        await ctx.send("What does Alan review? How do I request a video review? All the answers are in this link: https://principled-lychee-346.notion.site/12bf6d65f1d74780937fa8ae3ed70fe4?v=fd59a2938e614e988fdcb69914306633 You're welcome.")
+        await ctx.send("What does Alan review? How do I request a video review? All the answers are in this link: https://alanreviews.github.io/alan-reviews-updates/faq/ You're welcome.")
 
     @commands.command(name='links', aliases=['link'])
     async def links(self, ctx):
@@ -93,7 +93,7 @@ class Basics(commands.Cog):
         links = discord.Embed(title="List of Links",description="Here is a list of links. More will be added later. Enjoy!",colour=0xFF0000)
         links.set_author(name="Alan")
         links.add_field(name="YouTube", value="https://www.youtube.com/c/TheAlanReviews", inline=False)
-        links.add_field(name="Frequently asked questions", value="https://principled-lychee-346.notion.site/12bf6d65f1d74780937fa8ae3ed70fe4?v=fd59a2938e614e988fdcb69914306633", inline=False)
+        links.add_field(name="Frequently asked questions", value="https://alanreviews.github.io/alan-reviews-updates/faq/", inline=False)
         links.add_field(name="Review list", value="https://docs.google.com/spreadsheets/d/e/2PACX-1vSWIyo2ktAkKEQqLVwAdy3DvQLO9YzbPntU65-13nfNvZa-d5ohtd5lHEiijEz_erW8qeKwlS7wuoYW/pubhtml", inline=False)
         links.add_field(name="GitHub Repository", value="https://github.com/AlanReviews/Discordpy-bot", inline=False)
         await ctx.send(embed=links)
