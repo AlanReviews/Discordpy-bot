@@ -19,7 +19,7 @@ class Basics(commands.Cog):
         name = name or ctx.author.name
         await ctx.send(f"I give a hug to {name}!")
 
-    @commands.command()
+    @commands.command(name='eightball', aliases=['8ball'])
     async def eightball(self, ctx, arg):
         """I predict the future"""
         output = ["Yes", "No", "Unsure", "Can't answer right now"]
@@ -93,11 +93,19 @@ class Basics(commands.Cog):
         links = discord.Embed(title="List of Links",description="Here is a list of links. More will be added later. Enjoy!",colour=0xFF0000)
         links.set_author(name="Alan")
         links.add_field(name="YouTube", value="https://www.youtube.com/c/TheAlanReviews", inline=False)
-        links.add_field(name="Frequently asked questions", value="https://alanreviews.github.io/alan-reviews-updates/faq/", inline=False)
+        links.add_field(name="Official Website", value="https://alanreviews.github.io/alan-reviews-updates/", inline=False)
         links.add_field(name="Review list", value="https://docs.google.com/spreadsheets/d/e/2PACX-1vSWIyo2ktAkKEQqLVwAdy3DvQLO9YzbPntU65-13nfNvZa-d5ohtd5lHEiijEz_erW8qeKwlS7wuoYW/pubhtml", inline=False)
         links.add_field(name="GitHub Repository", value="https://github.com/AlanReviews/Discordpy-bot", inline=False)
         await ctx.send(embed=links)
-
+        
+    @commands.command(name='topic')
+    async def topic(self, ctx):
+        """Provides a question for users to talk about"""
+        topics = ["What is your favourite book?", "What is your favourite game?", 
+		"What is your favourite song with a positive message?", "What is your favourite place to visit?",
+		"Did you apply what you learned in school?", "What is your favourite programming language?", "What is your favourite website?"]
+        number = random.randint(0, len(topics))
+        await ctx.send(topics[number])
 
 async def setup(bot):
     await bot.add_cog(Basics(bot))

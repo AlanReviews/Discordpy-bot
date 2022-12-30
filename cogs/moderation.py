@@ -34,17 +34,18 @@ class moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *, reason):
+    async def kick(self, ctx, member: discord.Member, reason = "not specified"):
         """Removes a member from the server. The member can rejoin that server. Only members with the kick members permission can use this command."""
+        await member.send("You got kicked for " + reason)
         await member.kick(reason=reason)
         await ctx.send(f'User {member} has been kicked!')
 
-
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, *, reason = "not specified"):
+    async def ban(self, ctx, member: discord.Member, reason = "not specified"):
         """Removes a member from a server. The member cannot rejoin the server until the member gets unbanned. Only members with the ban members permission can use this command."""
         try:
+            await member.send("You got banned for " + reason)
             await member.ban(delete_message_days=7, reason=reason)
         except Exception as e:
             return await ctx.send(e)

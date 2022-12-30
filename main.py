@@ -11,7 +11,7 @@ intents.message_content = True
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 PREFIX = os.getenv("PREFIX", default="!!")
-activity = discord.Game(name="!!help")
+activity = discord.Game(name="Hello there!")
 
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 
