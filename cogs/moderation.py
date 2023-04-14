@@ -12,21 +12,21 @@ class moderation(commands.Cog):
     async def serverinfo(self, ctx):
         """Shows server information in an embed"""
         embed = Embed(title="Server information")
-        fields = [("ID", ctx.guild.id, True), ("Creation date", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),("Member count", ctx.guild.member_count, True),
+        embed.set_thumbnail(url = ctx.guild.icon)
+        fields = [("Name", ctx.guild.name, True), ("ID", ctx.guild.id, True), ("Creation date", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),("Member count", ctx.guild.member_count, True),
         ("Explicit content filer", ctx.guild.explicit_content_filter, True), ("Verification level", ctx.guild.verification_level, True)]
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
-
         await ctx.send(embed=embed)
 
     @commands.command()
     async def userinfo(self, ctx, user: discord.User = None):
-        """Shows user information in an embed"""
+        """Shows user information and their avatar in an embed"""
         if user is None:
             user = ctx.author
         embed = Embed(title="User information", colour=user.colour)
         embed.set_thumbnail(url=user.display_avatar)
-        fields = [("ID", user.id, False), ("Name", str(user), True)]
+        fields = [("Name", str(user), False), ("ID", user.id, False), ("System", user.system, False), ("Bot", user.bot, False)]
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
