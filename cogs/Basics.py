@@ -37,7 +37,7 @@ class Basics(commands.Cog):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://zenquotes.io/api/random") as r:
                 res = await r.json()  # returns dict
-                quote = res[0]['q'] + " -" + res[0]['a']
+                quote = res[0]['q'] + " - " + res[0]['a']
                 await ctx.send(quote)
     
     @commands.command()
@@ -95,6 +95,7 @@ class Basics(commands.Cog):
         links.add_field(name="YouTube", value="https://www.youtube.com/c/TheAlanReviews", inline=False)
         links.add_field(name="Official Website", value="https://alanreviews.github.io/alan-reviews-updates/", inline=False)
         links.add_field(name="Review list", value="https://docs.google.com/spreadsheets/d/e/2PACX-1vSWIyo2ktAkKEQqLVwAdy3DvQLO9YzbPntU65-13nfNvZa-d5ohtd5lHEiijEz_erW8qeKwlS7wuoYW/pubhtml", inline=False)
+        links.add_field(name="Discord Server", value="https://discord.gg/K9BdChUCMN", inline=False)
         links.add_field(name="GitHub Repository", value="https://github.com/AlanReviews/Discordpy-bot", inline=False)
         await ctx.send(embed=links)
         
