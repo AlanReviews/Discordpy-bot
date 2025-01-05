@@ -2,6 +2,7 @@ import discord, os, random, aiohttp, json
 from discord import File, Embed, channel
 from discord.ext import commands
 import random
+import logging
 
 class Basics(commands.Cog):
     def __init__(self, bot):
@@ -11,29 +12,34 @@ class Basics(commands.Cog):
     @commands.command()
     async def ping(self, ctx, name: str = None):
         """Check my websocket latency"""
+        logging.info(f"Ping command invoked by {ctx.author}")
         await ctx.send(f'My ping is {round(self.bot.latency * 100,2)} ms!')
 
     @commands.command()
     async def hug(self, ctx, name: str = None):
         """I give users a hug"""
         name = name or ctx.author.name
+        logging.info(f"Hug command invoked by {ctx.author} for {name}")
         await ctx.send(f"I give a hug to {name}!")
 
     @commands.command(name='eightball', aliases=['8ball'])
     async def eightball(self, ctx, arg):
         """I predict the future"""
         output = ["Yes", "No", "Unsure", "Can't answer right now"]
+        logging.info(f"Eightball command invoked by {ctx.author} with argument {arg}")
         await ctx.send(output[random.randint(0, len(output))])
 
     @commands.command()
     async def echo(self, ctx, *args):
         """I repeat what you say"""
+        logging.info(f"Echo command invoked by {ctx.author} with arguments {' '.join(args)}")
         await ctx.send(' '.join(ctx.message.content.split()[1:]))
         await ctx.message.delete()
 
     @commands.command()
     async def quote(self, ctx):
         """I give a quote from Zen Quotes"""
+        logging.info(f"Quote command invoked by {ctx.author}")
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://zenquotes.io/api/random") as r:
                 res = await r.json()  # returns dict
@@ -43,6 +49,7 @@ class Basics(commands.Cog):
     @commands.command()
     async def stats(self, ctx):
         """Check out my stats"""
+        logging.info(f"Stats command invoked by {ctx.author}")
         total_memory, used_memory, free_memory = map(
         int, os.popen('free -t -m').readlines()[-1].split()[1:])
         memory_usage = round((used_memory/total_memory) * 100, 2)
@@ -55,11 +62,13 @@ class Basics(commands.Cog):
     @commands.command()
     async def ubuntu(self, ctx):
         """Shows Ubuntu logo in ASCII format"""
+        logging.info(f"Ubuntu command invoked by {ctx.author}")
         await ctx.send(file=File(fp="cogs/Ubuntu.png"))
     
     @commands.command(name='roll', aliases=['dice'])
     async def roll(self, ctx, dice: str):
         """Rolls a dice in NdN format."""
+        logging.info(f"Roll command invoked by {ctx.author} with dice {dice}")
         try:
             rolls, limit = map(int, dice.split('d'))
         except Exception:
@@ -72,11 +81,13 @@ class Basics(commands.Cog):
     @commands.command(name='choose', description='For when you wanna settle the score some other way')
     async def choose(self, ctx, *choices: str):
         """Chooses between multiple choices."""
+        logging.info(f"Choose command invoked by {ctx.author} with choices {choices}")
         await ctx.send(random.choice(choices))
         
     @commands.command(name='dm')
     async def dm(self, ctx):
         """Sends a hello in dms"""
+        logging.info(f"DM command invoked by {ctx.author}")
         try:
             await ctx.message.author.send("Hello there")
         except:
@@ -85,11 +96,13 @@ class Basics(commands.Cog):
     @commands.command(name='faq', aliases=["questions"])
     async def faq(self, ctx):
         """Sends you a link to the Alan Reviews FAQ page"""
+        logging.info(f"FAQ command invoked by {ctx.author}")
         await ctx.send("What does Alan review? How do I request a video review? All the answers are in this link: https://alanreviews.github.io/alan-reviews-updates/faq/ You're welcome.")
 
     @commands.command(name='links', aliases=['link'])
     async def links(self, ctx):
         """Lists all my important links in an embed."""
+        logging.info(f"Links command invoked by {ctx.author}")
         links = discord.Embed(title="List of Links",description="Here is a list of links. More will be added later. Enjoy!",colour=0xFF0000)
         links.set_author(name="Alan")
         links.add_field(name="YouTube", value="https://www.youtube.com/c/TheAlanReviews", inline=False)
@@ -102,6 +115,7 @@ class Basics(commands.Cog):
     @commands.command(name='topic')
     async def topic(self, ctx):
         """Provides a question for users to talk about"""
+        logging.info(f"Topic command invoked by {ctx.author}")
         topics = ["What is your favourite book?", "What is your favourite game?", 
 		"What is your favourite song with a positive message?", "What is your favourite place to visit?",
 		"Did you apply what you learned in school?", "What is your favourite programming language?", "What is your favourite website?"]

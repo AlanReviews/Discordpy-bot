@@ -13,7 +13,14 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 PREFIX = os.getenv("PREFIX", default="!!")
 activity = discord.Game(name="Bonjour!")
 
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+ENVIRONMENT = os.getenv("ENVIRONMENT", default="development")
+
+if ENVIRONMENT == "production":
+    handler = logging.StreamHandler()
+else:
+    handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+
+logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 
 # subclassing commands.Bot
 class MyBot(commands.Bot):
@@ -34,4 +41,4 @@ bot = MyBot(command_prefix=commands.when_mentioned_or(PREFIX), description=DESCR
 async def on_message(message):
     await bot.process_commands(message)
 
-bot.run(TOKEN, log_handler=handler, log_level=logging.DEBUG)
+bot.run(TOKEN)
