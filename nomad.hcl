@@ -25,6 +25,7 @@ job "tara-bot" {
       template {
         data = <<EOH
 DISCORD_TOKEN={{ with nomadVar "nomad/jobs/tara-bot" }}{{ .DISCORD_TOKEN }}{{ end }}
+ENVIRONMENT=production
 EOH
 
         destination = "secrets/file.env"
